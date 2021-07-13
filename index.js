@@ -3,6 +3,8 @@ const fs = require("fs");
 const inquirer = require("inquirer");
 const axios = require("axios");
 
+const membersArray = [];
+
 //Manager's Questions List
 const managerQuestions = () => {
   return inquirer.prompt([
@@ -142,5 +144,19 @@ const employeeQuestions = () => {
       message: "Would you like to add more employees?",
       default: false,
     }
-  ]);
+  ])
+  .then(data => {
+    const {role, name, id, email, github, school, addMoreEmployees} = data;
+    let employeeType;
+    if (role === 'Engineer') {
+      employeeType = new Engineer (name, id, email, github);
+    } else if (role === 'Intern') {
+      employeeType = new Intern (name, id, email, school);
+    }
+    membersArray.push(employeeType);
+    if (addMoreEmployees) {
+      employeeQuestions()
+    } 
+    return membersArray;
+  })
 };
