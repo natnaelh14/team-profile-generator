@@ -160,3 +160,13 @@ const employeeQuestions = () => {
     return membersArray;
   })
 };
+
+//Generate index html file.
+
+function writeFile(data) {
+  fs.writeFile('./dist/about.html', data, (err) => {
+    err
+      ? console.log("Something went wrong. Please try again.")
+      : console.log("Your team profile has been successfully created.");
+  })
+};
