@@ -16,7 +16,7 @@ const managerCardGenerator = (manager) => {
                 <p><b>Email: </b><a href='haile.natnael@gmail.com'>haile.natnael@gmail.com</a></p>
             </div>
             <div class="content">
-                <p><b>Office number: </b>${manager.number}</p>
+                <p><b>Office number: </b>${manager.officeNumber}</p>
             </div>
         </div>
     </div>
@@ -29,8 +29,8 @@ const engineerCardGenerator = (engineer) => {
     <div class="card">
         <div class="media">
             <div class="media-content">
-                <p class="title is-4">${engineer.name}/p>
-                <p class="title is-4"><span class="iconify" data-icon="fa-solid:glasses" data-inline="false"></span> Engineer</p>
+                <p class="title is-4">${engineer.name}</p>
+                <p class="title is-4"><span class="iconify" data-icon="fa-solid:glasses" data-inline="false"></span>  Engineer</p>
             </div>
         </div>
         <div class='main-content'>

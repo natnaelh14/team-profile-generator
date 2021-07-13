@@ -4,14 +4,17 @@ const inquirer = require("inquirer");
 const axios = require("axios");
 
 //Imported classes
-const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern'); 
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+
+const htmlGenerator = require("./src/htmlGenerator");
 
 const membersArray = [];
 
 //Manager's Questions List
 const managerQuestions = () => {
+  console.log('prompt function')
   return inquirer
     .prompt([
       {
@@ -55,7 +58,7 @@ const managerQuestions = () => {
       },
       {
         type: "input",
-        name: "number",
+        name: "officeNumber",
         message: "What is the manager's office number?",
         validate: function (input) {
           if (isNaN(input)) {
@@ -68,15 +71,15 @@ const managerQuestions = () => {
       },
     ])
     .then((data) => {
-      const { name, id, email, number } = data;
-      const manager = new Manager(name, id, email, number);
+      let { name, id, email, officeNumber } = data;
+      const manager = new Manager(name, id, email, officeNumber);
       membersArray.push(manager);
+      console.log('membersArray', membersArray)
     });
 };
 
 const employeeQuestions = () => {
-  return inquirer
-    .prompt([
+  return inquirer.prompt([
       {
         type: "list",
         name: "role",
@@ -87,14 +90,14 @@ const employeeQuestions = () => {
         type: "input",
         name: "name",
         message: "What's the name of the employee?",
-        validate: function () {
+        validate: function (input) {
           if (input === "") {
             console.log("Please enter employee's name.");
             return false;
           } else {
             return true;
           }
-        },
+        }
       },
       {
         type: "input",
@@ -107,7 +110,7 @@ const employeeQuestions = () => {
           } else {
             return true;
           }
-        },
+        }
       },
       {
         type: "input",
@@ -157,18 +160,19 @@ const employeeQuestions = () => {
         default: false,
       },
     ])
-    .then((data) => {
-      const { role, name, id, email, github, school, addMoreEmployees } = data;
+    .then(data => {
+      let { role, name, id, email, github, school, addMoreEmployees } = data;
       let employeeType;
       if (role === "Engineer") {
-        employeeType = new Engineer(name, id, email, github);
+        employeeType = new Engineer(name, id, email, github)
       } else if (role === "Intern") {
-        employeeType = new Intern(name, id, email, school);
+        employeeType = new Intern(name, id, email, school)
       }
       membersArray.push(employeeType);
       if (addMoreEmployees) {
-        employeeQuestions();
+        employeeQuestions(membersArray);
       }
+      console.log('membersArrayTwo', membersArray)
       return membersArray;
     });
 };
@@ -183,12 +187,18 @@ function writeFile(data) {
   });
 }
 
-managerQuestions()
-  .then(employeeQuestions())
+function init() {
+  managerQuestions()
+  .then(employeeQuestions)
   .then((membersArray) => {
-    htmlGenerator(membersArray).then((cardsRender) => {
-      writeFile(cardsRender).catch((err) => {
-        console.log(err, "Something went wrong. Please try again");
-      });
-    });
+    return htmlGenerator(membersArray);
+  })
+  .then((cardsRender) => {
+    return writeFile(cardsRender);
+  })
+  .catch((err) => {
+    console.log(err, "Something went wrong. Please try again");
   });
+}
+
+init();
