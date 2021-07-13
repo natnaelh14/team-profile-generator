@@ -23,7 +23,57 @@ const managerCardGenerator = (manager) => {
     `;
 };
 
-const cardsGenerator = (cards) => {
+const engineerCardGenerator = (engineer) => {
+  return `
+    <!-- Engineer -->
+    <div class="card">
+        <div class="media">
+            <div class="media-content">
+                <p class="title is-4">${engineer.name}/p>
+                <p class="title is-4"><span class="iconify" data-icon="fa-solid:glasses" data-inline="false"></span> Engineer</p>
+            </div>
+        </div>
+        <div class='main-content'>
+            <div class="content">
+                <p><b>ID: </b>${engineer.id}</p>
+            </div>
+            <div class="content">
+                <p><b>Email: </b><a href="mailto:${engineer.email}">${engineer.email}</a></p>
+            </div>
+            <div class="content">
+                <p><b>GitHub: </b><a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
+            </div>
+        </div>
+    </div>
+    `;
+};
+
+const internCardGenerator = intern => {
+  return `
+    <!-- Intern -->
+    <div class="card">
+        <div class="media">
+            <div class="media-content">
+                <p class="title is-4">${intern.name}</p>
+                <p class="title is-4"><span class="iconify" data-icon="fa-solid:user-graduate" data-inline="false"></span> Intern</p>
+            </div>
+        </div>
+        <div class='main-content'>
+            <div class="content">
+                <p><b>ID: </b>${intern.id}</p>
+            </div>
+            <div class="content">
+                <p><b>Email: </b><a href="mailto:${intern.email}">${intern.email}</a></p>
+            </div>
+            <div class="content">
+                <p><b>School: </b>${inter.school}</p>
+            </div>
+        </div>
+    </div>
+    `;
+};
+
+const cardsGenerator = cards => {
   return `
     <!DOCTYPE html>
     <html lang="en">
