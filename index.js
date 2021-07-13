@@ -128,7 +128,7 @@ const employeeQuestions = () => {
       {
         type: "input",
         name: "github",
-        message: "What is the employee's github username.",
+        message: "What is the employee's github username?",
         when: (input) => input.role === "Engineer",
         validate: async function (input) {
           let githubUrl = `https://api.github.com/users/${input}`;
@@ -144,6 +144,7 @@ const employeeQuestions = () => {
         type: "input",
         name: "school",
         message: "What is the intern's school?",
+        when: (input) => input.role === "Intern",
         validate: function (input) {
           if (input === "") {
             console.log("Please enter the intern's school.");
