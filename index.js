@@ -2,6 +2,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const axios = require("axios");
+const { number } = require("yargs");
 
 const membersArray = [];
 
@@ -60,7 +61,12 @@ const managerQuestions = () => {
         }
       },
     },
-  ]);
+  ])
+  .then(data => {
+    const {name, id, email, number} = data;
+    const manager = new Manager (name, id, email, number);
+    membersArray.push(manager);
+  })
 };
 
 const employeeQuestions = () => {
@@ -170,3 +176,15 @@ function writeFile(data) {
       : console.log("Your team profile has been successfully created.");
   })
 };
+
+managerQuestions()
+.then(employeeQuestions())
+.then(membersArray => {
+    htmlGenerator(membersArray)
+.then(cardsRender => {
+  writeFile(cardsRender)
+.catch(err => {
+  console.log(err, 'Something went wrong. Please try again')
+})
+})
+})
