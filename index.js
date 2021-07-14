@@ -14,7 +14,6 @@ const membersArray = [];
 
 //Manager's Questions List
 const managerQuestions = () => {
-  console.log('prompt function')
   return inquirer
     .prompt([
       {
