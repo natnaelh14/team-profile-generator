@@ -1,5 +1,6 @@
+//import Engineer class
 const Engineer = require("../lib/Engineer");
-
+//Engineer input test
 describe("Enginner", () => {
     const engineer = new Engineer("Nate", 12345, "haile.natnael@gmail.com", "natnaelh14");
   describe("Initialization", () => {

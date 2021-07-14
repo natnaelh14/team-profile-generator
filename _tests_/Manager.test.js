@@ -1,5 +1,6 @@
+//import Manager class
 const Manager = require("../lib/Manager");
-
+//Manager input test
 describe("Manager", () => {
   const manager = new Manager("Bob", 12345, "haile.natnael@gmail.com", 12345)
   it("verify 'manager' object contents", () => {

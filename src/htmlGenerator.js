@@ -1,3 +1,4 @@
+//Manager card html
 const managerCardGenerator = (manager) => {
   return `
     <!-- Manager -->
@@ -22,7 +23,7 @@ const managerCardGenerator = (manager) => {
     </div>
     `;
 };
-
+//Engineer card html
 const engineerCardGenerator = (engineer) => {
   return `
     <!-- Engineer -->
@@ -47,8 +48,8 @@ const engineerCardGenerator = (engineer) => {
     </div>
     `;
 };
-
-const internCardGenerator = intern => {
+//Intern card html
+const internCardGenerator = (intern) => {
   return `
     <!-- Intern -->
     <div class="card">
@@ -72,8 +73,8 @@ const internCardGenerator = intern => {
     </div>
     `;
 };
-
-const cardsGenerator = cards => {
+//create html skeleton
+const cardsGenerator = (cards) => {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -110,33 +111,32 @@ const cardsGenerator = cards => {
     `;
 };
 
-
-const htmlGenerator = data => {
-    let cardsArray = [];
-
-    for (let i = 0; i < data.length; i++) {
-        const employee = data[i];
-        const role = employee.getRole(); 
-        switch (role) {
-            case 'Manager':
-                const managerCard = managerCardGenerator(employee);
-                cardsArray.push(managerCard);
-                break;
-            case 'Engineer':
-                const engineerCard = engineerCardGenerator(employee);
-                cardsArray.push(engineerCard);
-                break;
-            case 'Intern':
-                const internCard = internCardGenerator(employee);
-                cardsArray.push(internCard);
-                break;
-            default:
-                console.log('Error created in switch statement')
-        }
+//function that loops through data and appends cards into html
+const htmlGenerator = (data) => {
+  let cardsArray = [];
+  for (let i = 0; i < data.length; i++) {
+    const employee = data[i];
+    const role = employee.getRole();
+    switch (role) {
+      case "Manager":
+        const managerCard = managerCardGenerator(employee);
+        cardsArray.push(managerCard);
+        break;
+      case "Engineer":
+        const engineerCard = engineerCardGenerator(employee);
+        cardsArray.push(engineerCard);
+        break;
+      case "Intern":
+        const internCard = internCardGenerator(employee);
+        cardsArray.push(internCard);
+        break;
+      default:
+        console.log("Error created in switch statement");
     }
-    const employeeCards = cardsArray.join('')
-    const generateTeam = cardsGenerator(employeeCards); 
-    return generateTeam;
-}
+  }
+  const employeeCards = cardsArray.join("");
+  const generateTeam = cardsGenerator(employeeCards);
+  return generateTeam;
+};
 
 module.exports = htmlGenerator;

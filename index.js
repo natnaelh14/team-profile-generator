@@ -1,4 +1,4 @@
-// import node modules
+// Import node modules
 const fs = require("fs");
 const inquirer = require("inquirer");
 const axios = require("axios");
@@ -8,8 +8,10 @@ const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
+//Import html generator function
 const htmlGenerator = require("./src/htmlGenerator");
 
+//Store user input in an array of objects.
 const membersArray = [];
 
 //Manager's Questions List
@@ -47,10 +49,15 @@ const managerQuestions = () => {
         name: "email",
         message: "What is the manager's email?",
         validate: function (input) {
+          let emailVerify = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input);
           if (input === "") {
             console.log("Please enter the manager's email");
             return false;
-          } else {
+          } else if(!emailVerify) {
+            console.log("Please enter a valid email address");
+            return false;
+          }
+          else {
             return true;
           }
         },
@@ -73,12 +80,12 @@ const managerQuestions = () => {
       let { name, id, email, officeNumber } = data;
       const manager = new Manager(name, id, email, officeNumber);
       membersArray.push(manager);
-      console.log('membersArray', membersArray)
     });
 };
-
+//Intern's and Engineer's Questions List
 const employeeQuestions = () => {
-  return inquirer.prompt([
+  return inquirer
+    .prompt([
       {
         type: "list",
         name: "role",
@@ -96,7 +103,7 @@ const employeeQuestions = () => {
           } else {
             return true;
           }
-        }
+        },
       },
       {
         type: "input",
@@ -109,17 +116,22 @@ const employeeQuestions = () => {
           } else {
             return true;
           }
-        }
+        },
       },
       {
         type: "input",
         name: "email",
         message: "What is the employee's email?",
         validate: function (input) {
+          let emailVerify = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input);
           if (input === "") {
             console.log("Please enter the employee's email.");
             return false;
-          } else {
+          } else if (!emailVerify) {
+            console.log("Please enter a valid email address");
+            return false;
+          }
+          else {
             return true;
           }
         },
@@ -156,49 +168,50 @@ const employeeQuestions = () => {
       {
         type: "confirm",
         name: "addMoreEmployees",
-        message: "Would you like to add more employees?",
+        message: "Would you like to add more employees? (type 'Yes' or No)",
         default: false,
       },
     ])
-    .then(data => {
+    .then((data) => {
       let { role, name, id, email, github, school, addMoreEmployees } = data;
       let employeeType;
       if (role === "Engineer") {
-        employeeType = new Engineer(name, id, email, github)
+        employeeType = new Engineer(name, id, email, github);
       } else if (role === "Intern") {
-        employeeType = new Intern(name, id, email, school)
+        employeeType = new Intern(name, id, email, school);
       }
       membersArray.push(employeeType);
       if (addMoreEmployees) {
-        employeeQuestions(membersArray);
+        return employeeQuestions(membersArray);
       }
-      console.log('membersArrayTwo', membersArray)
       return membersArray;
     });
 };
 
 //Generate index html file.
-
 function writeFile(data) {
-  fs.writeFile("./dist/about.html", data, (err) => {
-    err
-      ? console.log("Something went wrong. Please try again.")
-      : console.log("Your team profile has been successfully created.");
+  fs.writeFile("./dist/index.html", data, (err) => {
+    if (err) {
+      console.log(err, "Something went wrong. Please try again.");
+      return;
+    } else {
+      console.log("Your team profile has been successfully created.");
+    }
   });
 }
-
+//initialize function
 function init() {
   managerQuestions()
-  .then(employeeQuestions)
-  .then((membersArray) => {
-    return htmlGenerator(membersArray);
-  })
-  .then((cardsRender) => {
-    return writeFile(cardsRender);
-  })
-  .catch((err) => {
-    console.log(err, "Something went wrong. Please try again");
-  });
+    .then(employeeQuestions)
+    .then((membersArray) => {
+      return htmlGenerator(membersArray);
+    })
+    .then((cardsRender) => {
+      return writeFile(cardsRender);
+    })
+    .catch((err) => {
+      console.log(err, "Something went wrong. Please try again");
+    });
 }
 
 init();

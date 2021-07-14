@@ -1,5 +1,6 @@
+//import Intern Class
 const Intern = require("../lib/Intern");
-
+//Intern input test
 describe("Intern", () => {
   const intern = new Intern(
     "Nate",
