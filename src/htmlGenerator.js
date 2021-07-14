@@ -67,7 +67,7 @@ const internCardGenerator = (intern) => {
                 <p><b>Email: </b><a href="mailto:${intern.email}">${intern.email}</a></p>
             </div>
             <div class="content">
-                <p><b>School: </b>${inter.school}</p>
+                <p><b>School: </b>${intern.school}</p>
             </div>
         </div>
     </div>
