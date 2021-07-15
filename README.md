@@ -2,7 +2,7 @@
 ## Team Profile Generator
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Description
-In this project, i set out to create a team profile generator using node.js. Initially, I created html file with template cards using Bulma and adding styling in css file. I then used inquirer npm to utilize prompt method and stored user's input in an array of objects. I made sure to verify each user's input for validity using conditionals and axios. I then created classes and functions to dynamically generate html file using fs. I ran the tests for every input type (employee, engineer, intern, and manager) successfully. I appreciate any input. Thanks!
+In this project, i set out to create a team profile generator using node.js. Initially, I created html file with template cards using Bulma and adding styling in css file. I then used inquirer npm to utilize prompt method and stored user's input in an array of objects. I made sure to check each user's input for validity using conditionals and axios. I then created classes and functions to dynamically generate html file using fs. I ran the tests for every input type (employee, engineer, intern, and manager) successfully. I appreciate any input. Thanks!
 ## Table of Contents
 * [Installation](#Installation)
 * [Usage](#Usage)
